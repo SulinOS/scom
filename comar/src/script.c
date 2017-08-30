@@ -536,7 +536,7 @@ py_execute(const char *app, const char *model, const char *method, PyObject *py_
     PyList_Insert(py_list, 0, PyBytes_FromString(config_dir_modules));
 
     // Put CSL methods into __builtin__
-    py_mod_builtin = PyImport_AddModule("__builtin__");
+    py_mod_builtin = PyImport_AddModule("__builtins__");
     py_dict_builtin = PyModule_GetDict(py_mod_builtin);
     for (py_method = methods; py_method->ml_name; py_method++) {
         py_method_code = PyCFunction_New(py_method, NULL);
