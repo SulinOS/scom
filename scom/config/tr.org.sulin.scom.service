@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=tr.org.sulin.scom
+Exec=/usr/sbin/scom
+User=root

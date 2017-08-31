@@ -16,15 +16,15 @@ import shutil
 from distutils.core import setup
 from distutils.command.install import install
 
-from comar import __version__ as version
+from scom import __version__ as version
 
 distfiles = """
     setup.py
-    comar/*.py
+    scom/*.py
 """
 
 def make_dist():
-    distdir = "comar-api-%s" % version
+    distdir = "scom-api-%s" % version
     list = []
     for t in distfiles.split():
         list.extend(glob.glob(t))
@@ -39,7 +39,7 @@ def make_dist():
             if not os.path.exists(dn):
                 os.mkdir(dn)
         shutil.copy(file_, os.path.join(distdir, file_))
-    os.popen("tar -czf %s %s" % ("comar-api-" + version + ".tar.gz", distdir))
+    os.popen("tar -czf %s %s" % ("scom-api-" + version + ".tar.gz", distdir))
     shutil.rmtree(distdir)
 
 if "dist" in sys.argv:
@@ -50,9 +50,9 @@ if "dist" in sys.argv:
 class Install(install):
     def finalize_options(self):
         # NOTE: for Pardus distribution
-        if os.path.exists("/etc/pardus-release"):
-            self.install_platlib = '$base/lib/pardus'
-            self.install_purelib = '$base/lib/pardus'
+        if os.path.exists("/etc/sulin-release"):
+            self.install_platlib = '$base/lib/sulin'
+            self.install_purelib = '$base/lib/sulin'
         install.finalize_options(self)
     
     def run(self):
@@ -60,13 +60,13 @@ class Install(install):
 
 
 setup(
-    name = 'comar',
+    name = 'scom',
     version = version,
     description = 'COMAR API Functions',
-    url = 'http://www.pardus.org.tr/projeler/comar',
+    url = 'http://www.sulin.org.tr/projeler/scom',
     license = 'GNU GPL2',
     package_dir = { '': '' },
-    packages = [ 'comar' ],
+    packages = [ 'scom' ],
     cmdclass = {
         'install' : Install
     }

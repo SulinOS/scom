@@ -1,0 +1,23 @@
+Requirements
+=============
+
+    Python 2.5
+    DBus
+    polkit
+
+
+Installation
+=============
+
+Build:
+
+    $ cmake .
+    $ make
+
+Install:
+
+    # make install DESTDIR=/
+
+Import Scom 2.0 scripts (optional):
+
+    # scom2to3
