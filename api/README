@@ -1,10 +1,10 @@
-COMAR API package offers modules for accessing COMAR over D-Bus without pain and 
-common methods/classes for COMAR scripts.
+SCOM API package offers modules for accessing COMAR over D-Bus without pain and 
+common methods/classes for SCOM scripts.
 
-Here are some examples for accessing COMAR:
+Here are some examples for accessing SCOM:
 
-    import comar
-    link = comar.Link()
+    import scom
+    link = scom.Link()
 
     # Localize strings
     link.setLocale()
@@ -28,8 +28,8 @@ Asynchronous calls:
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
     mainloop = gobject.MainLoop()
 
-    import comar
-    link = comar.Link()
+    import scom
+    link = scom.Link()
 
     # Localize strings
     link.setLocale()
@@ -40,22 +40,22 @@ Asynchronous calls:
     # Make an asynchronous call to get service information
     def handler(package, exception, result):
         if exception:
-            print "%s error: %s" % (package, exception)
+            print ("%s error: %s" % (package, exception))
         else:
-            print "%s result: %s" % (package, result)
+            print ("%s result: %s" % (package, result))
     link.System.Service.info(async=handler)
 
     mainloop.run()
 
-Connecting COMAR service on alternate destination:
+Connecting SCOM service on alternate destination:
 
-    import comar
-    link = comar.Link(alternate=True)
+    import scom
+    link = scom.Link(alternate=True)
 
-This will simply try to connect tr.org.pardus.comar2 instead 
-of tr.org.pardus.comar
+This will simply try to connect tr.org.pardus.scom2 instead 
+of tr.org.pardus.scom
 
 Connecting to alternative DBus server:
 
-    import comar
-    link = comar.Link(socket="/mnt/target/var/run/dbus/system_bus_socket")
+    import scom
+    link = scom.Link(socket="/mnt/target/var/run/dbus/system_bus_socket")

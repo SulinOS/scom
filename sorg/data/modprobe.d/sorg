@@ -1,0 +1,6 @@
+install fglrx /sbin/sorg-loadmodule $CMDLINE_OPTS
+install nvidia /sbin/sorg-loadmodule $CMDLINE_OPTS
+install nvidia_new /sbin/sorg-loadmodule $CMDLINE_OPTS
+install nvidia_old /sbin/sorg-loadmodule $CMDLINE_OPTS
+install nvidia_173 /sbin/sorg-loadmodule $CMDLINE_OPTS
+install nvidia_177 /sbin/sorg-loadmodule $CMDLINE_OPTS

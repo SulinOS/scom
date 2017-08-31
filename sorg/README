@@ -1,0 +1,26 @@
+
+What is sorg?
+-------------
+
+sorg consists of python scripts and modules which
+automate the configuration of Xorg.
+
+
+Requirements
+------------
+
+* sulin-python > 0.3.3
+
+
+Installing & Running
+--------------------
+
+1. Register the Scom script comes with sorg package:
+
+    hav register Xorg.Display sorg scom/xorg.display.py
+
+2. Install:
+
+    ./setup.py install --install-lib=/usr/lib/sulin
+
+3. Run: sorg-cli

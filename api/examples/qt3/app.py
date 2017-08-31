@@ -5,7 +5,7 @@ import sys
 
 from qt import *
 
-import comar
+import scom
 from dbus.mainloop.qt3 import DBusQtMainLoop
 
 import mainform
@@ -14,7 +14,7 @@ class Window(mainform.mainForm):
     def __init__(self, parent=None):
         mainform.mainForm.__init__(self, parent)
 
-        self.link = comar.Link()
+        self.link = scom.Link()
 
         self.connect(self.buttonServices, SIGNAL("clicked()"), self.getServices)
 

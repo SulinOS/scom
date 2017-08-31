@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import comar
+import scom
 import mainform
 
 from PyQt4 import QtGui
@@ -19,7 +19,7 @@ class Window(QtGui.QWidget):
         self.ui.setupUi(self)
 
         # Call Comar
-        self.link = comar.Link()
+        self.link = scom.Link()
 
         # Connect button click event to getServices method
         self.connect(self.ui.buttonServices, SIGNAL("clicked()"), self.getServices)
@@ -31,7 +31,7 @@ class Window(QtGui.QWidget):
             self.ui.textServices.append("%s - %s - %s - %s" % (package, serviceName, serviceDesc, serviceState))
 
     def getServices(self):
-        # Get service list from comar link
+        # Get service list from scom link
         self.link.System.Service.info(async=self.handleServices)
 
 def main():
