@@ -60,11 +60,11 @@ message_execute(DBusMessage *msg, const char *app, const char *model, const char
     PyObject *py_args = pydbus_import(msg);
     char *eStr, *vStr;
 
-    // Validate model and method
+    /* Validate model and method
     if (validate_model_member(model, method, 0) != 0) {
         bus_reply_unknown_method(msg);
         return;
-    }
+    }*/
 
     // Check policy
 

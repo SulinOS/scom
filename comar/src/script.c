@@ -533,7 +533,7 @@ py_execute(const char *app, const char *model, const char *method, PyObject *py_
     py_module = PyImport_ImportModule("sys");
     py_dict = PyModule_GetDict(py_module);
     py_list = PyDict_GetItemString(py_dict, "path");
-    PyList_Insert(py_list, 0, PyBytes_FromString(config_dir_modules));
+    PyList_Insert(py_list, 0, PyUnicode_FromString(config_dir_modules));
 
     // Put CSL methods into __builtin__
     py_mod_builtin = PyImport_AddModule("__builtins__");

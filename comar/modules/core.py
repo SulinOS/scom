@@ -6,7 +6,7 @@ import shutil
 
 def listModelApplications(model):
     apps = []
-    scriptDir = os.path.join(config_datapath(), "scripts", model)
+    scriptDir = os.path.join('/var/db/comar3/', "scripts", model)
     if not os.path.exists(scriptDir):
         return apps
     for i in os.listdir(scriptDir):
@@ -16,7 +16,7 @@ def listModelApplications(model):
 
 def listApplicationModels(app):
     models = []
-    scriptDir = os.path.join(config_datapath(), "apps", app)
+    scriptDir = os.path.join('/var/db/comar3/', "apps", app)
     if not os.path.exists(scriptDir):
         return models
     for i in os.listdir(scriptDir):
@@ -25,7 +25,7 @@ def listApplicationModels(app):
     return models
 
 def register(app, model, filename):
-    scriptDir = os.path.join(config_datapath(), "scripts", model)
+    scriptDir = os.path.join('/var/db/comar3/', "scripts", model)
     scriptFile = os.path.join(scriptDir, "%s.py" % app)
     try:
         os.mkdir(scriptDir)
@@ -33,7 +33,7 @@ def register(app, model, filename):
         pass
     shutil.copy(filename, scriptFile)
 
-    scriptDir = os.path.join(config_datapath(), "apps", app)
+    scriptDir = os.path.join('/var/db/comar3/', "apps", app)
     scriptFile = os.path.join(scriptDir, model)
     try:
         os.mkdir(scriptDir)
@@ -47,12 +47,12 @@ def register(app, model, filename):
     return True
 
 def remove(app):
-    scriptDir = os.path.join(config_datapath(), "apps", app)
+    scriptDir = os.path.join('/var/db/comar3/', "apps", app)
     if not os.path.exists(scriptDir):
         return
     for i in os.listdir(scriptDir):
         if not i.startswith("."):
-            scriptFile = os.path.join(config_datapath(), "scripts", i, "%s.py" % app)
+            scriptFile = os.path.join('/var/db/comar3/', "scripts", i, "%s.py" % app)
             try:
                 os.unlink(scriptFile)
             except:
@@ -88,7 +88,7 @@ def introspect():
         xml += model_xml("Core")
         xml += '<node name="package"/>'
     elif path == '/package':
-        scriptDir = os.path.join(config_datapath(), "apps")
+        scriptDir = os.path.join('/var/db/comar3/', "apps")
         for i in os.listdir(scriptDir):
             if not i.startswith("."):
                 xml += '<node name="%s"/>' % i
