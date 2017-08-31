@@ -124,7 +124,7 @@ handle_message(DBusMessage *msg)
 
     log_debug("Forked new process for '%s.%s' - '%s'\n", iface, method, path);
 
-    if (method == NULL || path == NULL || path == NULL) {
+    if (method == NULL || path == NULL || iface == NULL) {
         bus_reply_unknown_method(msg);
     }
     else if (strcmp("org.freedesktop.DBus.Introspectable", iface) == 0 && strcmp("Introspect", method) == 0) {
