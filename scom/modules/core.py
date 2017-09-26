@@ -25,7 +25,7 @@ def listApplicationModels(app):
     return models
 
 def register(app, model, filename):
-    scriptDir = os.path.join('/var/db/comar3/', "scripts", model)
+    scriptDir = os.path.join('/var/db/scom3/', "scripts", model)
     scriptFile = os.path.join(scriptDir, "%s.py" % app)
     try:
         os.mkdir(scriptDir)
@@ -33,26 +33,26 @@ def register(app, model, filename):
         pass
     shutil.copy(filename, scriptFile)
 
-    scriptDir = os.path.join('/var/db/comar3/', "apps", app)
+    scriptDir = os.path.join('/var/db/scom3/', "apps", app)
     scriptFile = os.path.join(scriptDir, model)
     try:
         os.mkdir(scriptDir)
     except:
         pass
     try:
-        file(scriptFile, "w").write("")
+        open(scriptFile, "w").write("")
     except:
         pass
 
     return True
 
 def remove(app):
-    scriptDir = os.path.join('/var/db/comar3/', "apps", app)
+    scriptDir = os.path.join('/var/db/scom3/', "apps", app)
     if not os.path.exists(scriptDir):
         return
     for i in os.listdir(scriptDir):
         if not i.startswith("."):
-            scriptFile = os.path.join('/var/db/comar3/', "scripts", i, "%s.py" % app)
+            scriptFile = os.path.join('/var/db/scom3/', "scripts", i, "%s.py" % app)
             try:
                 os.unlink(scriptFile)
             except:
