@@ -3,7 +3,7 @@
 import os
 import subprocess
 
-from pardus.sysutils import get_kernel_option
+from sulinpython.sysutils import get_kernel_option
 
 xorg_lock = "/tmp/.X0-lock"
 

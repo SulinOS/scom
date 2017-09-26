@@ -281,7 +281,7 @@ def getKeymap():
         pass
 
     if not layout:
-        from pardus.localedata import languages
+        from sulinpython.localedata import languages
 
         try:
             language = file("/etc/mudur/language").read().strip()
