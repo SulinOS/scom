@@ -23,13 +23,13 @@ import subprocess
 
 import gettext
 __trans = gettext.translation('scomd', fallback=True)
-_ = __trans.ugettext
+_ = __trans.gettext
 
 # Utilities
 
 def loadConfig(path):
     d = {}
-    for line in file(path):
+    for line in open(path):
         if line != "" and not line.startswith("#") and "=" in line:
             key, value = line.split("=", 1)
             key = key.strip()

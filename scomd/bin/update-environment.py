@@ -101,7 +101,7 @@ def generate_profile_env(envdict, format='export %s="%s"\n'):
     return header + header_note + profile
 
 def update_file(path, content):
-    f = file(path, "w")
+    f = open(path, "w")
     f.write(content)
     f.close()
 

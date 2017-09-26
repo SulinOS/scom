@@ -31,7 +31,7 @@ default_mount_dir = "/mnt"
 
 excluded_file_systems = ("proc", "tmpfs", "sysfs", "linux-swap", "swap", "nfs", "nfs4", "cifs")
 
-sulin_labels = ("PARDUS_ROOT", "PARDUS_HOME", "PARDUS_SWAP")
+sulin_labels = ("SULIN_ROOT", "SULIN_HOME", "SULIN_SWAP")
 
 # Utility functions
 
@@ -160,7 +160,7 @@ class Fstab:
             if entry.mount_point != "none" and not os.path.exists(entry.mount_point):
                 os.makedirs(entry.mount_point)
 
-        f = file(path, "w")
+        f = open(path, "w")
         f.write(self.comment)
         f.write(str(self))
         f.write("\n")

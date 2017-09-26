@@ -15,11 +15,11 @@ from optparse import OptionParser
 # first group in the groups list is the main group
 
 user = {"uid": -1,
-        "username": "kaplan",
-        "realname": "Pisi",
-        "home": "/home/pisi",
+        "username": "Fox",
+        "realname": "Inari",
+        "home": "/home/inari",
         "shell": "/bin/bash",
-        "password": "pisi",
+        "password": "inari",
         "defaultgroup": "users",
         "groups": [],
         "admingroups": ["wheel"],

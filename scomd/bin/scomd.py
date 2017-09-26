@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Pardus boot and initialization system
+# Sulin boot and initialization system
 # Copyright (C) 2017, Suleyman POYRAZ (AquilaNipalensis)
 #
 # This program is free software; you can redistribute it and/or modify it
@@ -29,7 +29,7 @@ from scomd_cgroupfs import Cgroupfs
 ########
 
 __trans = gettext.translation('scomd', fallback=True)
-_ = __trans.ugettext
+_ = __trans.gettext
 
 ##############
 # Decorators #
@@ -370,7 +370,7 @@ class Config:
 
         # Fill in the options
         self.options["live"] = "thin" in options or \
-                               os.path.exists("/run/pisilinux/livemedia")
+                               os.path.exists("/run/sulin/livemedia")
 
         for k in [_k for _k in list(options.keys()) if _k not in ("thin")]:
             self.options[k] = options[k] if options[k] else True
@@ -492,13 +492,13 @@ class Ui:
     def greet(self):
         """Dump release information, sets unicode mode."""
         print(self.UNICODE_MAGIC)
-        if os.path.exists("/etc/pisilinux-release"):
-            release = load_file("/etc/pisilinux-release").rstrip("\n")
-            print("\x1b[1m  %s  \x1b[0;36mhttp://www.pisilinux.org\x1b[0m" \
+        if os.path.exists("/etc/sulin-release"):
+            release = load_file("/etc/sulin-release").rstrip("\n")
+            sys.stdout.write("\x1b[1m  %s  \x1b[0;36mhttp://www.sulin.org\x1b[0m" \
                     % release)
         else:
-            self.error(_("Cannot find /etc/pisilinux-release"))
-        print()
+            self.error(_("Cannot find /etc/sulin-release"))
+        sys.stdout.write("\n")
 
     def info(self, msg):
         """Print the given message and log if debug enabled."""
@@ -601,7 +601,7 @@ def load_translations():
     global _
     lang = CONFIG.get("language")
     __trans = gettext.translation('scomd', languages=[lang], fallback=True)
-    _ = __trans.ugettext
+    _ = __trans.gettext
 
 def set_unicode_mode():
     """Makes TTYs unicode compatible."""
@@ -751,8 +751,8 @@ def stop_services():
 
 def prune_needs_action_package_list():
     """Clears the lists to hold needsServiceRestart and needsReboot updates."""
-    for _file in ("/var/lib/pisi/info/needsrestart",
-                  "/var/lib/pisi/info/needsreboot"):
+    for _file in ("/var/lib/spam/info/needsrestart",
+                  "/var/lib/spam/info/needsreboot"):
         if os.path.exists(_file):
             os.unlink(_file)
 
@@ -920,7 +920,7 @@ def check_root_filesystem():
                 UI.warn(_("Filesystem repaired, but reboot needed!"))
                 i = 0
                 while i < 4:
-                    print("\07")
+                    sys.stdout.write("\07")
                     time.sleep(1)
                     i += 1
                 UI.warn(_("Rebooting in 10 seconds..."))
@@ -1308,13 +1308,12 @@ def stop_system():
 def except_hook(e_type, e_value, e_trace):
     """Hook that intercepts and handles exceptions."""
     import traceback
-    print()
-    print(_("An internal error occured. Please report to the bugs.pisilinux.org"
+    sys.stdout.write("\n")
+    sys.stdout.write(_("An internal error occured. Please report to the bugs.pisilinux.org"
             "with following information:").encode("utf-8"))
-    print()
-    print(e_type, e_value)
+    sys.stdout.write(e_type); sys.stdout.write(e_value)
     traceback.print_tb(e_trace)
-    print()
+    sys.stdout.write("\n")
     run_full("/sbin/sulogin")
 
 
