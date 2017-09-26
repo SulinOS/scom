@@ -80,12 +80,12 @@ message_execute(DBusMessage *msg, const char *app, const char *model, const char
             int result;
             if (policy_check(sender, action_id, &result) == 0) {
                 if (result != POLICY_YES) {
-                    bus_reply_error(msg, "Comar.PolicyKit", action_id);
+                    bus_reply_error(msg, "Scom.PolicyKit", action_id);
                     return;
                 }
             }
             else {
-                bus_reply_error(msg, "Comar.PolicyKit", "error");
+                bus_reply_error(msg, "Scom.PolicyKit", "error");
                 return;
             }
         }

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import scom
@@ -7,7 +7,7 @@ import locale
 import sys
 import os
 
-import piksemel
+import ciksemel
 
 def printUsage():
     print("Usage: %s <command>" % sys.argv[0])
@@ -27,7 +27,7 @@ def introspect(link, path="/"):
     nodes = []
     interfaces = {}
 
-    xml = piksemel.parseString(obj.Introspect(dbus_interface="org.freedesktop.DBus.Introspectable"))
+    xml = ciksemel.parseString(obj.Introspect(dbus_interface="org.freedesktop.DBus.Introspectable"))
     for tag in xml.tags():
         if tag.name() == "node":
             nodes.append(tag.getAttribute("name"))
