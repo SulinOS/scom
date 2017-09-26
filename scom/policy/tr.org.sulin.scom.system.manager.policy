@@ -2,7 +2,7 @@
 <!DOCTYPE policyconfig PUBLIC "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN" "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
 
 <policyconfig>
-    <vendor>Pardus</vendor>
+    <vendor>Sulin</vendor>
     <vendor_url>http://www.sulin.org.tr</vendor_url>
     <icon_name>package</icon_name>
 

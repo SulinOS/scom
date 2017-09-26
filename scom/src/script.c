@@ -53,12 +53,12 @@ script_init()
     Py_InitializeEx(0);
 
     // Initialize exceptions
-    PyExc_SCOM_Internal = PyErr_NewException("Comar.Internal", NULL, NULL);
-    PyExc_SCOM_Invalid = PyErr_NewException("Comar.Invalid", NULL, NULL);
-    PyExc_SCOM_Script = PyErr_NewException("Comar.Script", NULL, NULL);
-    PyExc_SCOM_Missing = PyErr_NewException("Comar.Missing", NULL, NULL);
-    PyExc_DBus = PyErr_NewException("Comar.DBus", NULL, NULL);
-    PyExc_PolicyKit = PyErr_NewException("Comar.PolicyKit", NULL, NULL);
+    PyExc_SCOM_Internal = PyErr_NewException("Scom.Internal", NULL, NULL);
+    PyExc_SCOM_Invalid = PyErr_NewException("Scom.Invalid", NULL, NULL);
+    PyExc_SCOM_Script = PyErr_NewException("Scom.Script", NULL, NULL);
+    PyExc_SCOM_Missing = PyErr_NewException("Scom.Missing", NULL, NULL);
+    PyExc_DBus = PyErr_NewException("Scom.DBus", NULL, NULL);
+    PyExc_PolicyKit = PyErr_NewException("Scom.PolicyKit", NULL, NULL);
 
     // Load model definitions
     PyObject *py_models;
@@ -349,7 +349,7 @@ c_i18n(PyObject *self, PyObject *args)
         return py_value;
     }
     else {
-        PyErr_Format(PyExc_SCOM_Script, "'en' locale string should be provided by default in COMAR scripts.");
+        PyErr_Format(PyExc_SCOM_Script, "'en' locale string should be provided by default in SCOM scripts.");
         return NULL;
     }
 }

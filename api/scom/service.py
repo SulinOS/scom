@@ -227,7 +227,7 @@ def startService(command, args=None, pidfile=None, makepid=False, nice=None, det
               and run it in the background.
     makepid:  Write the pid file if service does not create on its own. Mostly useful
               with the detach option.
-    donotify: If True, automatically make Comar notification when service is run.
+    donotify: If True, automatically make Scom notification when service is run.
               Also automatically fail() if something goes wrong.
     """
     cmd = [ command ]
@@ -307,7 +307,7 @@ def stopService(pidfile=None, command=None, args=None, chuid=None, user=None, na
     user:      Stop processes belonging to this user name.
     signalno:  Specify the signal to send to processes being stopped.
                Default is SIGTERM.
-    donotify: If True, automatically make Comar notification when service is stopped.
+    donotify: If True, automatically make Scom notification when service is stopped.
               Also automatically fail() if something goes wrong.
     """
     if signalno is None:
@@ -386,7 +386,7 @@ def isServiceRunning(pidfile=None, command=None):
             return False
     return True
 
-# Default Comar class methods
+# Default Scom class methods
 
 def info():
     from csl import serviceType

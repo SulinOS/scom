@@ -67,7 +67,7 @@ class Call:
                 def handleResult(*result):
                     self.async(self.package, None, result)
                 def handleError(exception):
-                    if "policy.auth" in exception._dbus_error_name or "Comar.PolicyKit" in exception._dbus_error_name:
+                    if "policy.auth" in exception._dbus_error_name or "Scom.PolicyKit" in exception._dbus_error_name:
                         action = exception.get_dbus_message()
                         if self.queryPolicyKit(action):
                             return self.call(*args, **kwargs)
@@ -120,7 +120,7 @@ class Call:
                 try:
                     return met(dbus_interface="%s.%s.%s" % (self.link.interface, self.group, self.class_), timeout=self.timeout, *args)
                 except dbus.DBusException as exception:
-                    if "policy.auth" in exception._dbus_error_name or "Comar.PolicyKit" in exception._dbus_error_name:
+                    if "policy.auth" in exception._dbus_error_name or "Scom.PolicyKit" in exception._dbus_error_name:
                         action = exception.get_dbus_message()
                         if self.queryPolicyKit(action):
                             return self.call(*args, **kwargs)
