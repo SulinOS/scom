@@ -54,15 +54,15 @@ def is_on():
         if not os.access(_dir, os.W_OK):
             os.makedirs(_dir)
 
-    makeDir("/etc/mudur/services/enabled")
-    makeDir("/etc/mudur/services/disabled")
-    makeDir("/etc/mudur/services/conditional")
+    makeDir("/etc/scomd/services/enabled")
+    makeDir("/etc/scomd/services/disabled")
+    makeDir("/etc/scomd/services/conditional")
 
-    if os.access(os.path.join("/etc/mudur/services/enabled", script()), os.F_OK):
+    if os.access(os.path.join("/etc/scomd/services/enabled", script()), os.F_OK):
         state = "on"
-    elif os.access(os.path.join("/etc/mudur/services/disabled", script()), os.F_OK):
+    elif os.access(os.path.join("/etc/scomd/services/disabled", script()), os.F_OK):
         state = "off"
-    elif os.access(os.path.join("/etc/mudur/services/conditional", script()), os.F_OK):
+    elif os.access(os.path.join("/etc/scomd/services/conditional", script()), os.F_OK):
         state = "conditional"
 
     return state
@@ -427,28 +427,28 @@ def setState(state=None):
     def remove(_file):
         os.unlink(_file)
 
-    makeDir("/etc/mudur/services/enabled")
-    makeDir("/etc/mudur/services/disabled")
-    makeDir("/etc/mudur/services/conditional")
+    makeDir("/etc/scomd/services/enabled")
+    makeDir("/etc/scomd/services/disabled")
+    makeDir("/etc/scomd/services/conditional")
 
     if state == "on":
-        touch(os.path.join("/etc/mudur/services/enabled", script()))
-        if os.access(os.path.join("/etc/mudur/services/disabled", script()), os.F_OK):
-            remove(os.path.join("/etc/mudur/services/disabled", script()))
-        if os.access(os.path.join("/etc/mudur/services/conditional", script()), os.F_OK):
-            remove(os.path.join("/etc/mudur/services/conditional", script()))
+        touch(os.path.join("/etc/scomd/services/enabled", script()))
+        if os.access(os.path.join("/etc/scomd/services/disabled", script()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/disabled", script()))
+        if os.access(os.path.join("/etc/scomd/services/conditional", script()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/conditional", script()))
     elif state == "off":
-        touch(os.path.join("/etc/mudur/services/disabled", script()))
-        if os.access(os.path.join("/etc/mudur/services/enabled", script()), os.F_OK):
-            remove(os.path.join("/etc/mudur/services/enabled", script()))
-        if os.access(os.path.join("/etc/mudur/services/conditional", script()), os.F_OK):
-            remove(os.path.join("/etc/mudur/services/conditional", script()))
+        touch(os.path.join("/etc/scomd/services/disabled", script()))
+        if os.access(os.path.join("/etc/scomd/services/enabled", script()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/enabled", script()))
+        if os.access(os.path.join("/etc/scomd/services/conditional", script()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/conditional", script()))
     else:
-        touch(os.path.join("/etc/mudur/services/conditional", script()))
-        if os.access(os.path.join("/etc/mudur/services/enabled", script()), os.F_OK):
-            remove(os.path.join("/etc/mudur/services/enabled", script()))
-        if os.access(os.path.join("/etc/mudur/services/disabled", script()), os.F_OK):
-            remove(os.path.join("/etc/mudur/services/disabled", script()))
+        touch(os.path.join("/etc/scomd/services/conditional", script()))
+        if os.access(os.path.join("/etc/scomd/services/enabled", script()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/enabled", script()))
+        if os.access(os.path.join("/etc/scomd/services/disabled", script()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/disabled", script()))
 
     notify("System.Service", "Changed", (script(), state))
 
@@ -460,8 +460,8 @@ def registerState():
     def touch(_file):
         file(_file, "w").close()
 
-    makeDir("/etc/mudur/services/enabled")
-    makeDir("/etc/mudur/services/conditional")
+    makeDir("/etc/scomd/services/enabled")
+    makeDir("/etc/scomd/services/conditional")
 
     state = None
     try:
@@ -471,8 +471,8 @@ def registerState():
         pass
 
     if state == "on":
-        if script() not in os.listdir("/etc/mudur/services/disabled"):
-            touch(os.path.join("/etc/mudur/services/enabled", script()))
+        if script() not in os.listdir("/etc/scomd/services/disabled"):
+            touch(os.path.join("/etc/scomd/services/enabled", script()))
     elif state == "conditional":
-        if script() not in os.listdir("/etc/mudur/services/disabled"):
-            touch(os.path.join("/etc/mudur/services/conditional", script()))
+        if script() not in os.listdir("/etc/scomd/services/disabled"):
+            touch(os.path.join("/etc/scomd/services/conditional", script()))
