@@ -15,6 +15,7 @@ import dbus
 import locale
 import os
 import subprocess
+from dbus.mainloop.glib import DBusGMainLoop
 
 class Call:
     def __init__(self, link, group, class_=None, package=None, method=None):
@@ -141,12 +142,12 @@ class Link:
 
         # Auto-enable agent, if X session present.
         self.use_agent = ("DISPLAY" in os.environ)
+        DBusGMainLoop(set_as_default=True)
 
         if not socket:
             self.bus = dbus.SystemBus()
         else:
             self.bus = dbus.bus.BusConnection(address_or_type="unix:path=%s" % socket)
-
         if alternate:
             self.address += "2"
 
