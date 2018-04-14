@@ -1310,8 +1310,8 @@ def except_hook(e_type, e_value, e_trace):
     import traceback
     sys.stdout.write("\n")
     sys.stdout.write(_("An internal error occured. Please report to the bugs.pisilinux.org"
-            "with following information:").encode("utf-8"))
-    sys.stdout.write(e_type); sys.stdout.write(e_value)
+            "with following information:"))
+    sys.stdout.write(str(e_type)); sys.stdout.write(str(e_value))
     traceback.print_tb(e_trace)
     sys.stdout.write("\n")
     run_full("/sbin/sulogin")
