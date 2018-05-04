@@ -39,7 +39,7 @@ def connectToDBus():
 
     try:
         bus = dbus.SystemBus()
-    except dbus.DBusException:
+    except dbus.exceptions.DBusException:
         return False
 
     if bus:
@@ -52,7 +52,7 @@ def addUser():
                     user["home"], user["shell"], user["password"],
                     user["groups"], user["grants"], user["blocks"],
                     dbus_interface="tr.org.sulin.scom.User.Manager")
-    except dbus.DBusException as e:
+    except dbus.exceptions.DBusException as e:
         fail("Error: %s" % e)
 
 

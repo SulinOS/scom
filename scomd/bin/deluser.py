@@ -25,7 +25,7 @@ def connectToDBus():
 
     try:
         bus = dbus.SystemBus()
-    except dbus.DBusException:
+    except dbus.exceptions.DBusException:
         return False
 
     if bus:
@@ -36,7 +36,7 @@ def delUser():
     try:
         obj.deleteUser(user["uid"], user["deletefiles"],
                     dbus_interface="tr.org.sulin.scom.User.Manager")
-    except dbus.DBusException as e:
+    except dbus.exceptions.DBusException as e:
         fail("Error: %s." % e)
 
 

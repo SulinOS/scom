@@ -676,7 +676,7 @@ def start_services(extras=None):
     os.setuid(0)
     try:
         bus = dbus.SystemBus()
-    except dbus.DBusException:
+    except dbus.exceptions.DBusException:
         UI.error(_("Cannot connect to DBus, services won't be started"))
         return
 
@@ -685,7 +685,7 @@ def start_services(extras=None):
         for service in extras:
             try:
                 manage_service(service, "start")
-            except dbus.DBusException:
+            except dbus.exceptions.DBusException:
                 pass
 
     else:
@@ -740,7 +740,7 @@ def stop_services():
     UI.info(_("Stopping services"))
     try:
         bus = dbus.SystemBus()
-    except dbus.DBusException:
+    except dbus.exceptions.DBusException:
         return
 
     for service in get_service_list(bus, _all=True):

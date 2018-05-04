@@ -92,7 +92,7 @@ class VideoDevice:
         for package in packages:
             try:
                 info = link.Xorg.Driver[package].getInfo()
-            except dbus.DBusException:
+            except dbus.exceptions.DBusException:
                 continue
             alias = str(info["alias"])
             if alias == driver:

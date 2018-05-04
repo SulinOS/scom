@@ -41,7 +41,7 @@ def main():
             printUsage()
         try:
             apps = obj.listModelApplications(model, dbus_interface='tr.org.pardus.comar3')
-        except dbus.DBusException, e:
+        except dbus.exceptions.DBusException ase:
             handleError(e)
             return
         for app in apps:
@@ -53,7 +53,7 @@ def main():
             printUsage()
         try:
             models = obj.listApplicationModels(app, dbus_interface='tr.org.pardus.comar3')
-        except dbus.DBusException, e:
+        except dbus.exceptions.DBusException ase:
             handleError(e)
         for model in models:
             print model
@@ -67,7 +67,7 @@ def main():
         path = os.path.realpath(script)
         try:
             obj.register(app, model, path, dbus_interface='tr.org.pardus.comar3')
-        except dbus.DBusException, e:
+        except dbus.exceptions.DBusException ase:
             handleError(e)
     elif sys.argv[1] == "remove":
         try:
@@ -76,7 +76,7 @@ def main():
             printUsage()
         try:
             obj.remove(app, dbus_interface='tr.org.pardus.comar3')
-        except dbus.DBusException, e:
+        except dbus.exceptions.DBusException ase:
             handleError(e)
     else:
         printUsage()

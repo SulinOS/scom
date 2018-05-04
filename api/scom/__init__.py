@@ -120,12 +120,12 @@ class Call:
                 met = getattr(obj, self.method)
                 try:
                     return met(dbus_interface="%s.%s.%s" % (self.link.interface, self.group, self.class_), timeout=self.timeout, *args)
-                except dbus.DBusException as exception:
+                except dbus.exceptions.DBusException as exception:
                     if "policy.auth" in exception._dbus_error_name or "Scom.PolicyKit" in exception._dbus_error_name:
                         action = exception.get_dbus_message()
                         if self.queryPolicyKit(action):
                             return self.call(*args, **kwargs)
-                    raise dbus.DBusException(exception)
+                    raise dbus.exceptions.DBusException(exception)
             else:
                 raise AttributeError("Package name required for non-async calls.")
 
@@ -162,14 +162,14 @@ class Link:
                     code = code.split("_")[0]
                 obj = self.bus.get_object(self.address, '/', introspect=False)
                 obj.setLocale(code, dbus_interface=self.interface)
-        except dbus.DBusException as exception:
+        except dbus.exceptions.DBusException as exception:
             pass
 
     def cancel(self, method="*"):
         try:
             obj = self.bus.get_object(self.address, '/', introspect=False)
             return obj.cancel(method, dbus_interface=self.interface)
-        except dbus.DBusException as exception:
+        except dbus.exceptions.DBusException as exception:
             return 0
 
     def listRunning(self, all=True):
@@ -177,7 +177,7 @@ class Link:
         try:
             obj = self.bus.get_object(self.address, '/', introspect=False)
             methods = obj.listRunning(all, dbus_interface=self.interface)
-        except dbus.DBusException as exception:
+        except dbus.exceptions.DBusException as exception:
             return methods
         for index, method in enumerate(methods):
             if method.startswith("%s." % self.interface):

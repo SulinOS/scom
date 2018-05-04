@@ -143,7 +143,7 @@ def readyService(service):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].ready()
-    except dbus.DBusException as e:
+    except dbus.exceptions.DBusException as e:
         print(_("Unable to start %s:") % service)
         print("  %s" % e.args[0])
 
@@ -153,7 +153,7 @@ def startService(service, quiet=False):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].start()
-    except dbus.DBusException as e:
+    except dbus.exceptions.DBusException as e:
         print(_("Unable to start %s:") % service)
         print("  %s" % e.args[0])
         return
@@ -166,7 +166,7 @@ def stopService(service, quiet=False):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].stop()
-    except dbus.DBusException as e:
+    except dbus.exceptions.DBusException as e:
         print(_("Unable to stop %s:") % service)
         print("  %s" % e.args[0])
         return
@@ -179,7 +179,7 @@ def setServiceState(service, state, quiet=False):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].setState(state)
-    except dbus.DBusException as e:
+    except dbus.exceptions.DBusException as e:
         print(_("Unable to set %s state:") % service)
         print("  %s" % e.args[0])
         return
@@ -197,7 +197,7 @@ def reloadService(service, quiet=False):
         link.setLocale()
         link.useAgent(False)
         link.System.Service[service].reload()
-    except dbus.DBusException as e:
+    except dbus.exceptions.DBusException as e:
         print(_("Unable to reload %s:") % service)
         print("  %s" % e.args[0])
         return
@@ -288,7 +288,7 @@ def manage_dbus(op, use_color, quiet):
     elif op in ["info", "status", "list"]:
         try:
             dbus.SystemBus()
-        except dbus.DBusException:
+        except dbus.exceptions.DBusException:
             print(_("DBus is not running."))
             return
         print(_("DBus is running."))
@@ -350,7 +350,7 @@ def main(args):
     elif args[1] in operations:
         try:
             manage_service(args[0].replace("-", "_"), args[1], use_color, quiet)
-        except dbus.DBusException as e:
+        except dbus.exceptions.DBusException as e:
             if "Unable to find" in str(e):
                 print(_("No such service: %s") % args[0])
             else:

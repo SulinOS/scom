@@ -110,7 +110,7 @@ def saveXorgConfig(card):
         try:
             secDevice.options = link.Xorg.Driver[pkg].getDeviceOptions(
                                     card.bus_id, opts)
-        except dbus.DBusException:
+        except dbus.exceptions.DBusException:
             pass
 
     # Backup and save xorg.conf
