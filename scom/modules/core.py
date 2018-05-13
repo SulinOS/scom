@@ -6,7 +6,7 @@ import shutil
 
 def listModelApplications(model):
     apps = []
-    scriptDir = os.path.join('/var/db/comar3/', "scripts", model)
+    scriptDir = os.path.join('/var/db/scom3/', "scripts", model)
     if not os.path.exists(scriptDir):
         return apps
     for i in os.listdir(scriptDir):
@@ -16,7 +16,7 @@ def listModelApplications(model):
 
 def listApplicationModels(app):
     models = []
-    scriptDir = os.path.join('/var/db/comar3/', "apps", app)
+    scriptDir = os.path.join('/var/db/scom3/', "apps", app)
     if not os.path.exists(scriptDir):
         return models
     for i in os.listdir(scriptDir):
@@ -88,7 +88,7 @@ def introspect():
         xml += model_xml("Core")
         xml += '<node name="package"/>'
     elif path == '/package':
-        scriptDir = os.path.join('/var/db/comar3/', "apps")
+        scriptDir = os.path.join('/var/db/scom3/', "apps")
         for i in os.listdir(scriptDir):
             if not i.startswith("."):
                 xml += '<node name="%s"/>' % i

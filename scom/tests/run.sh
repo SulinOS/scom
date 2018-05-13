@@ -1,16 +1,16 @@
 #!/bin/sh
 
-rm -rf comar_root
+rm -rf scom_root
 
-mkdir -p comar_root/var/log
-mkdir -p comar_root/var/db
+mkdir -p scom_root/var/log
+mkdir -p scom_root/var/db
 
 cd ..
 cmake .
 make
-make install DESTDIR=tests/comar_root
+make install DESTDIR=tests/scom_root
 cd tests
 
 echo
 
-comar_root/usr/sbin/comar3 --datadir=comar_root/var/db/comar3 --logdir=comar_root/var/log/comar3 --debug --print
+scom_root/usr/sbin/scom --datadir=scom_root/var/db/scom3 --logdir=scom_root/var/log/scom3 --debug --print
