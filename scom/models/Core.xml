@@ -1,12 +1,12 @@
 <scomModel>
     <interface name="Core">
-        <method name="register" action_id="">
+        <method name="register" action_id="tr.org.sulin.scom.register">
             <arg name="model" type="s" direction="in"/>
             <arg name="package" type="s" direction="in"/>
             <arg name="script" type="s" direction="in"/>
             <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
         </method>
-        <method name="remove" action_id="">
+        <method name="remove" action_id="tr.org.sulin.scom.remove">
             <arg name="package" type="s" direction="in"/>
             <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
         </method>
