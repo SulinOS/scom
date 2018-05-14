@@ -36,7 +36,7 @@
         <description xml:lang="fr">Obtenir le statut d'un service</description>
         <description xml:lang="es">Obtener estado de servicios</description>
         <description xml:lang="pl">Odczyt stanu usługi</description>
-        <description xml:lang="de">Dienst-Zustand abrufen</description>	
+        <description xml:lang="de">Dienst-Zustand abrufen</description>
         <description xml:lang="sv">Visa status för tjänst</description>
         <message>System policy prevents getting service status</message>
         <message xml:lang="tr">Sistem politikası servis durumunu okumayı engelliyor</message>

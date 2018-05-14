@@ -126,7 +126,7 @@ def main():
             else:
                 print(met.call())
         except dbus.exceptions.DBusException as e:
-            if e._dbus_error_name.endswith(".Comar.PolicyKit"):
+            if e._dbus_error_name.endswith(".Scom.PolicyKit"):
                 print("Access to '%s' PolicyKit action required." % e.get_dbus_message())
             else:
                 print("Error:")

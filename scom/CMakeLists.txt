@@ -103,8 +103,3 @@ INSTALL (FILES
 INSTALL (PROGRAMS tools/hav.py
          DESTINATION /usr/bin
          RENAME hav)
-
-# Install hav to /usr/bin/scom2to3
-INSTALL (PROGRAMS tools/scom2to3.py
-         DESTINATION /usr/bin
-         RENAME scom2to3)

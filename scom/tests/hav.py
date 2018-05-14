@@ -9,7 +9,7 @@ import os
 def handleError(exception):
     error = exception.get_dbus_name()
     message = exception.message
-    if error.endswith("Comar.PolicyKit"):
+    if error.endswith("Scom.PolicyKit"):
         print "Access denied. '%s' access required" % message
     else:
         print message
@@ -29,10 +29,10 @@ def main():
         printUsage()
 
     bus = dbus.SystemBus()
-    obj = bus.get_object('tr.org.pardus.comar3', '/', introspect=False)
+    obj = bus.get_object('tr.org.sulin.scom', '/', introspect=False)
 
     lang = locale.getdefaultlocale()[0].split("_")[0]
-    obj.setLocale(lang, dbus_interface='tr.org.pardus.comar3')
+    obj.setLocale(lang, dbus_interface='tr.org.sulin.scom')
 
     if sys.argv[1] == "list-apps":
         try:
@@ -40,7 +40,7 @@ def main():
         except IndexError:
             printUsage()
         try:
-            apps = obj.listModelApplications(model, dbus_interface='tr.org.pardus.comar3')
+            apps = obj.listModelApplications(model, dbus_interface='tr.org.sulin.scom')
         except dbus.exceptions.DBusException ase:
             handleError(e)
             return
@@ -52,7 +52,7 @@ def main():
         except IndexError:
             printUsage()
         try:
-            models = obj.listApplicationModels(app, dbus_interface='tr.org.pardus.comar3')
+            models = obj.listApplicationModels(app, dbus_interface='tr.org.sulin.scom')
         except dbus.exceptions.DBusException ase:
             handleError(e)
         for model in models:
@@ -66,7 +66,7 @@ def main():
             printUsage()
         path = os.path.realpath(script)
         try:
-            obj.register(app, model, path, dbus_interface='tr.org.pardus.comar3')
+            obj.register(app, model, path, dbus_interface='tr.org.sulin.scom')
         except dbus.exceptions.DBusException ase:
             handleError(e)
     elif sys.argv[1] == "remove":
@@ -75,7 +75,7 @@ def main():
         except IndexError:
             printUsage()
         try:
-            obj.remove(app, dbus_interface='tr.org.pardus.comar3')
+            obj.remove(app, dbus_interface='tr.org.sulin.scom')
         except dbus.exceptions.DBusException ase:
             handleError(e)
     else:
