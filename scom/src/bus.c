@@ -59,7 +59,6 @@ bus_send(DBusMessage *bus_msg)
      */
 
     dbus_uint32_t serial = 0;
-
     dbus_connection_send(bus_conn, bus_msg, &serial);
     dbus_connection_flush(bus_conn);
 }
@@ -94,6 +93,7 @@ bus_reply_object(DBusMessage *bus_msg, PyObject *py_obj, char *signature)
     // If signature is not null, append Python object to message
     if (strcmp(signature, "") != 0) {
         PyObject *py_tuple;
+
         if (!PyTuple_Check(py_obj)) {
             py_tuple = PyTuple_New(1);
             PyTuple_SetItem(py_tuple, 0, py_obj);

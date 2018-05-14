@@ -214,7 +214,7 @@ filter_func(DBusConnection *conn, DBusMessage *bus_msg, void *data)
                 if (strcmp(config_interface, iface) == 0 && strcmp(path, "/") == 0) {
                     // "setLocale" and "cancel" methods are handled in main process
                     if (strcmp(method, "setLocale") == 0 || strcmp(method, "cancel") == 0 || strcmp(method, "listRunning") == 0) {
-                        handle_core_message(bus_msg, path, iface, method, sender, py_args);
+                                                handle_core_message(bus_msg, path, iface, method, sender, py_args);
                     }
                     else {
                         // Else, handle in child process

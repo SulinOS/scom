@@ -108,3 +108,6 @@ install_manifest.txt
 Makefile
 cmake_install.cmake
 
+#Test file
+scom_root
+scom

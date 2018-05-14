@@ -10,11 +10,11 @@
             <arg name="package" type="s" direction="in"/>
             <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
         </method>
-        <method name="listModelApplications" action_id="">
+        <method name="listModelApplications" action_id="tr.org.sulin.scom.listModelApplications">
             <arg name="model" type="s" direction="in"/>
             <arg name="apps" type="as" direction="out"/>
         </method>
-        <method name="listApplicationModels" action_id="">
+        <method name="listApplicationModels" action_id="tr.org.sulin.scom.listApplicationModels">
             <arg name="app" type="s" direction="in"/>
             <arg name="models" type="as" direction="out"/>
         </method>
