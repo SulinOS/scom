@@ -293,7 +293,7 @@ pydbus_export_item(DBusMessageIter *iter, PyObject *obj, char *signature)
                 p.s = PyBytes_AsString(obj);
             }
             //If returned Unicode type return utf-8 coded string
-            if (PyUnicode_Check(obj)) {
+            else if (PyUnicode_Check(obj)) {
                 p.s = PyUnicode_AsUTF8(obj);
             }
             else {

@@ -78,18 +78,20 @@ message_execute(DBusMessage *msg, const char *app, const char *model, const char
 
         if (strcmp(action_id, "") != 0) {
             int result;
-            if (policy_check(sender, action_id, &result) == 0) {
+            if (policy_check(sender, action_id, &result) == 0) {              
                 if (result != POLICY_YES) {
                     bus_reply_error(msg, "Scom.PolicyKit", action_id);
                     return;
                 }
             }
-            else {
+        else {
+
                 bus_reply_error(msg, "Scom.PolicyKit", "error");
                 return;
             }
         }
     }
+
 
     // Execute method
     switch (py_execute(app, model, method, py_args, &py_ret)) {
@@ -127,6 +129,7 @@ handle_message(DBusMessage *msg)
     if (method == NULL || path == NULL || iface == NULL) {
         bus_reply_unknown_method(msg);
     }
+
     else if (strcmp("org.freedesktop.DBus.Introspectable", iface) == 0 && strcmp("Introspect", method) == 0) {
         // Introspection method
         message_execute(msg, NULL, "Core", "introspect");
