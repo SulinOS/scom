@@ -240,10 +240,10 @@ validate_model_member(const char *model, const char *member, int type)
      * @return 0 if valid, -1 if invalid
      *
      */
-
-    if (PyDict_Contains(PyDict_GetItemString(py_core, "models"), PyBytes_FromString(model))) {
+ //buraya neden girmiyor ki acaba
+    if (PyDict_Contains(PyDict_GetItemString(py_core, "models"), PyUnicode_FromString(model))) {
         PyObject *py_dict_model = PyDict_GetItemString(PyDict_GetItemString(py_core, "models"), model);
-        if (PyDict_Contains(py_dict_model, PyBytes_FromString(member))) {
+        if (PyDict_Contains(py_dict_model, PyUnicode_FromString(member))) {
             PyObject *py_tuple = PyDict_GetItemString(py_dict_model, member);
             if (PyLong_AsLong(PyTuple_GetItem(py_tuple, 0)) == (long) type) {
                 return 0;
@@ -537,7 +537,7 @@ py_execute(const char *app, const char *model, const char *method, PyObject *py_
     PyList_Insert(py_list, 0, PyUnicode_FromString(config_dir_modules));
 
     // Put CSL methods into __builtin__
-    py_mod_builtin = PyImport_AddModule("__builtins__");
+    py_mod_builtin = PyImport_AddModule("builtins");
     py_dict_builtin = PyModule_GetDict(py_mod_builtin);
     for (py_method = methods; py_method->ml_name; py_method++) {
         py_method_code = PyCFunction_New(py_method, NULL);
@@ -552,7 +552,7 @@ py_execute(const char *app, const char *model, const char *method, PyObject *py_
         if (fn_script == NULL) oom();
         snprintf(fn_script, size, "%s/%s/%s.py", config_dir_scripts, model, app);
         fn_script[size - 1] = 0;
-
+        printf("Bura geldi\n" );
         // Check script existance
         if (access(fn_script, R_OK) != 0) {
             log_error("Unable to find script: %s\n", fn_script);
@@ -560,6 +560,8 @@ py_execute(const char *app, const char *model, const char *method, PyObject *py_
             free(fn_script);
             return -1;
         }
+        printf("Bura geldi 2\n" );
+
 
         // Load script file
         char *code = load_file(fn_script, NULL);
@@ -569,6 +571,7 @@ py_execute(const char *app, const char *model, const char *method, PyObject *py_
             free(fn_script);
             return -1;
         }
+        printf("Bura geldi 3\n" );
 
         // Compile script
         py_code = Py_CompileString(code, fn_script, Py_file_input);

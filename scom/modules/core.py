@@ -64,7 +64,7 @@ def model_xml(modelName):
         xml = '<interface name="%s">' % config_interface()
     else:
         xml = '<interface name="%s.%s">' % (config_interface(), modelName)
-    for _name, (_type, _action_id, _sig_in, _sig_out) in config_modelbase()[modelName].iteritems():
+    for _name, (_type, _action_id, _sig_in, _sig_out) in config_modelbase()[modelName].items():
         if _type == 0:
             xml += '<method name="%s">' % _name
         else:
@@ -82,7 +82,7 @@ def model_xml(modelName):
 
 
 def introspect():
-    path = bus_path()
+    path = bus_path().decode('utf-8')
     xml = '<node name="%s">' % path
     if path == '/':
         xml += model_xml("Core")
@@ -95,6 +95,7 @@ def introspect():
     elif path.startswith('/package/'):
         app = path.split("/package/")[1]
         for name in listApplicationModels(app):
+            print(name)
             xml += model_xml(name)
     xml += '</node>'
     return xml

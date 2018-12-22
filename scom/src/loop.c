@@ -60,11 +60,10 @@ message_execute(DBusMessage *msg, const char *app, const char *model, const char
     PyObject *py_args = pydbus_import(msg);
     char *eStr, *vStr;
 
-    /* Validate model and method
     if (validate_model_member(model, method, 0) != 0) {
         bus_reply_unknown_method(msg);
         return;
-    }*/
+    }
 
     // Check policy
 
@@ -78,7 +77,7 @@ message_execute(DBusMessage *msg, const char *app, const char *model, const char
 
         if (strcmp(action_id, "") != 0) {
             int result;
-            if (policy_check(sender, action_id, &result) == 0) {              
+            if (policy_check(sender, action_id, &result) == 0) {
                 if (result != POLICY_YES) {
                     bus_reply_error(msg, "Scom.PolicyKit", action_id);
                     return;
