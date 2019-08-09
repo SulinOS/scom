@@ -111,3 +111,6 @@ cmake_install.cmake
 #Test file
 scom_root
 scom/scom
+
+#Intellij IDEA
+.idea/
