@@ -24,7 +24,7 @@ class Call:
         self.class_ = class_
         self.package = package
         self.method = method
-        self.async = None
+        self.assync = None
         self.quiet = False
 
         if self.package:
@@ -55,24 +55,24 @@ class Call:
                 yield str(package)
 
     def call(self, *args, **kwargs):
-        self.async = kwargs.get("async", None)
+        self.assync = kwargs.get("async", None)
         self.quiet = kwargs.get("quiet", False)
         self.timeout = kwargs.get("timeout", 120)
-        if self.async and self.quiet:
+        if self.assync and self.quiet:
             raise Exception("async and quiet arguments can't be used together")
-        if self.async or self.quiet:
+        if self.assync or self.quiet:
             if self.package:
                 obj = self.link.bus.get_object(self.link.address, "/package/%s" % self.package)
                 met = getattr(obj, self.method)
 
                 def handleResult(*result):
-                    self.async(self.package, None, result)
+                    self.assync(self.package, None, result)
                 def handleError(exception):
                     if "policy.auth" in exception._dbus_error_name or "Scom.PolicyKit" in exception._dbus_error_name:
                         action = exception.get_dbus_message()
                         if self.queryPolicyKit(action):
                             return self.call(*args, **kwargs)
-                    self.async(self.package, exception, None)
+                    self.assync(self.package, exception, None)
 
                 if self.quiet:
                     met(dbus_interface="%s.%s.%s" % (self.link.interface, self.group, self.class_), *args)
@@ -88,11 +88,11 @@ class Call:
                     else:
                         def handleResult(package):
                             def handler(*result):
-                                return self.async(package, None, result)
+                                return self.assync(package, None, result)
                             return handler
                         def handleError(package):
                             def handler(exception):
-                                return self.async(package, exception, None)
+                                return self.assync(package, exception, None)
                             return handler
 
                         for package in packages:
