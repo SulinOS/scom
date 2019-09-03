@@ -28,7 +28,10 @@ MSG_PROFILE_NAME = {
     "tr": "Bağlantı yaratmak için profil ismi girmelisiniz",
 }
 
-INI = iniutils.iniParser(os.path.join(NET_PATH, script()), quiet=True)
+if isinstance(type(script()), type(bytes)):
+    sscript=script().decode("utf-8")
+
+INI = iniutils.iniParser(os.path.join(NET_PATH, sscript), quiet=True)
 
 def listProfiles():
     try:

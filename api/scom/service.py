@@ -27,13 +27,19 @@ from scom.utility import *
 
 # utility functions
 
+def sscript():
+    if isinstance(type(script()), type(bytes)):
+        return script().decode("utf-8")
+    else:
+        return script()
+
 def loadConfig(filename=None):
     conf = {}
     if not filename:
         try:
             from csl import serviceConf
         except ImportError:
-            serviceConf = script()
+            serviceConf = sscript()
         filename = "/etc/conf.d/%s" % serviceConf
     if not os.path.exists(filename):
         return conf
@@ -58,11 +64,11 @@ def is_on():
     makeDir("/etc/scomd/services/disabled")
     makeDir("/etc/scomd/services/conditional")
 
-    if os.access(os.path.join("/etc/scomd/services/enabled", script()), os.F_OK):
+    if os.access(os.path.join("/etc/scomd/services/enabled", sscript()), os.F_OK):
         state = "on"
-    elif os.access(os.path.join("/etc/scomd/services/disabled", script()), os.F_OK):
+    elif os.access(os.path.join("/etc/scomd/services/disabled", sscript()), os.F_OK):
         state = "off"
-    elif os.access(os.path.join("/etc/scomd/services/conditional", script()), os.F_OK):
+    elif os.access(os.path.join("/etc/scomd/services/conditional", sscript()), os.F_OK):
         state = "conditional"
 
     return state
@@ -281,13 +287,13 @@ def startService(command, args=None, pidfile=None, makepid=False, nice=None, det
         if donotify:
             # We blindly send this, cause there is no way to track detached
             # process' return code.
-            notify("System.Service", "Changed", (script(), "started"))
+            notify("System.Service", "Changed", (sscript(), "started"))
         return execReply(0)
     else:
         ret = execReply(popen.wait())
         if donotify:
             if ret == 0:
-                notify("System.Service", "Changed", (script(), "started"))
+                notify("System.Service", "Changed", (sscript(), "started"))
             else:
                 ret.stdout, ret.stderr = popen.communicate()
                 err = "Unable to start service."
@@ -328,7 +334,7 @@ def stopService(pidfile=None, command=None, args=None, chuid=None, user=None, na
         ret.stdout, ret.stderr = popen.communicate()
         if donotify:
             if ret == 0:
-                notify("System.Service", "Changed", (script(), "stopped"))
+                notify("System.Service", "Changed", (sscript(), "stopped"))
             else:
                 err = "Unable to stop service."
                 if ret.stderr != "":
@@ -353,7 +359,7 @@ def stopService(pidfile=None, command=None, args=None, chuid=None, user=None, na
                 if timeout <= 0:
                     fail("Unable to stop")
             if donotify:
-                notify("System.Service", "Changed", (script(), "stopped"))
+                notify("System.Service", "Changed", (sscript(), "stopped"))
         else:
             # Already stopped, no need to send notification.
             return None
@@ -365,7 +371,7 @@ def stopService(pidfile=None, command=None, args=None, chuid=None, user=None, na
             for pid in pids:
                 os.kill(pid, signalno)
             if donotify:
-                notify("System.Service", "Changed", (script(), "stopped"))
+                notify("System.Service", "Changed", (sscript(), "stopped"))
     return None
 
 def isServiceRunning(pidfile=None, command=None):
@@ -432,25 +438,25 @@ def setState(state=None):
     makeDir("/etc/scomd/services/conditional")
 
     if state == "on":
-        touch(os.path.join("/etc/scomd/services/enabled", script()))
-        if os.access(os.path.join("/etc/scomd/services/disabled", script()), os.F_OK):
-            remove(os.path.join("/etc/scomd/services/disabled", script()))
-        if os.access(os.path.join("/etc/scomd/services/conditional", script()), os.F_OK):
-            remove(os.path.join("/etc/scomd/services/conditional", script()))
+        touch(os.path.join("/etc/scomd/services/enabled", sscript()))
+        if os.access(os.path.join("/etc/scomd/services/disabled", sscript()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/disabled", sscript()))
+        if os.access(os.path.join("/etc/scomd/services/conditional", sscript()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/conditional", sscript()))
     elif state == "off":
-        touch(os.path.join("/etc/scomd/services/disabled", script()))
-        if os.access(os.path.join("/etc/scomd/services/enabled", script()), os.F_OK):
-            remove(os.path.join("/etc/scomd/services/enabled", script()))
-        if os.access(os.path.join("/etc/scomd/services/conditional", script()), os.F_OK):
-            remove(os.path.join("/etc/scomd/services/conditional", script()))
+        touch(os.path.join("/etc/scomd/services/disabled", sscript()))
+        if os.access(os.path.join("/etc/scomd/services/enabled", sscript()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/enabled", sscript()))
+        if os.access(os.path.join("/etc/scomd/services/conditional", sscript()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/conditional", sscript()))
     else:
-        touch(os.path.join("/etc/scomd/services/conditional", script()))
-        if os.access(os.path.join("/etc/scomd/services/enabled", script()), os.F_OK):
-            remove(os.path.join("/etc/scomd/services/enabled", script()))
-        if os.access(os.path.join("/etc/scomd/services/disabled", script()), os.F_OK):
-            remove(os.path.join("/etc/scomd/services/disabled", script()))
+        touch(os.path.join("/etc/scomd/services/conditional", sscript()))
+        if os.access(os.path.join("/etc/scomd/services/enabled", sscript()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/enabled", sscript()))
+        if os.access(os.path.join("/etc/scomd/services/disabled", sscript()), os.F_OK):
+            remove(os.path.join("/etc/scomd/services/disabled", sscript()))
 
-    notify("System.Service", "Changed", (script(), state))
+    notify("System.Service", "Changed", (sscript(), state))
 
 def registerState():
     def makeDir(_dir):
@@ -458,9 +464,10 @@ def registerState():
             os.makedirs(_dir)
 
     def touch(_file):
-        file(_file, "w").close()
+        open(_file, "w").close()
 
     makeDir("/etc/scomd/services/enabled")
+    makeDir("/etc/scomd/services/disabled")
     makeDir("/etc/scomd/services/conditional")
 
     state = None
@@ -471,8 +478,8 @@ def registerState():
         pass
 
     if state == "on":
-        if script() not in os.listdir("/etc/scomd/services/disabled"):
-            touch(os.path.join("/etc/scomd/services/enabled", script()))
+        if sscript() not in os.listdir("/etc/scomd/services/disabled"):
+            touch(os.path.join("/etc/scomd/services/enabled", sscript()))
     elif state == "conditional":
-        if script() not in os.listdir("/etc/scomd/services/disabled"):
-            touch(os.path.join("/etc/scomd/services/conditional", script()))
+        if sscript() not in os.listdir("/etc/scomd/services/disabled"):
+            touch(os.path.join("/etc/scomd/services/conditional", sscript()))

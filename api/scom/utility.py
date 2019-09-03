@@ -21,15 +21,21 @@ class execReply(int):
         self.stdout = None
         self.stderr = None
 
+def sscript():
+    if isinstance(type(script()), type(bytes)):
+        return script().decode("utf-8")
+    else:
+        return script()
+        
 def synchronized(func):
     """Syncronize method call with a per method lock.
-    
+
     This decorator makes sure that only one instance of the script's
     method run in any given time.
     """
     class Handler:
         def handler(self, *args, **kwargs):
-            lock = FileLock("/var/lock/subsys/%s.scom" % script())
+            lock = FileLock("/var/lock/subsys/%s.scom" % sscript())
             lock.lock()
             self.myfunc(*args, **kwargs)
             lock.unlock()
