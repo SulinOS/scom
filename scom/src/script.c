@@ -179,10 +179,10 @@ py_catch(char **eStr, char **vStr, int log)
         return;
     }
 
-    *eStr = PyBytes_AsString(PyObject_GetAttrString(py_type, "__name__"));
+    *eStr = PyUnicode_AsUTF8(PyObject_GetAttrString(py_type, "__name__"));
 
     if (py_value) {
-        *vStr = PyBytes_AsString(PyObject_Str(py_value));
+        *vStr = PyUnicode_AsUTF8(PyObject_Str(py_value));
     }
 
     if (log == 0) {
@@ -195,9 +195,9 @@ py_catch(char **eStr, char **vStr, int log)
     while (py_trace != NULL && py_trace != Py_None) {
         py_frame = PyObject_GetAttrString(py_trace, "tb_frame");
         py_code = PyObject_GetAttrString(py_frame, "f_code");
-        log_error("    File %s, line %d, in %s()\n", PyBytes_AsString(PyObject_GetAttrString(py_code, "co_filename")),
+        log_error("    File %s, line %d, in %s()\n", PyUnicode_AsUTF8(PyObject_GetAttrString(py_code, "co_filename")),
                                                    (int) PyLong_AsLong(PyObject_GetAttrString(py_trace, "tb_lineno")),
-                                                   PyBytes_AsString(PyObject_GetAttrString(py_code, "co_name")));
+                                                   PyUnicode_AsUTF8(PyObject_GetAttrString(py_code, "co_name")));
         py_trace = PyObject_GetAttrString(py_trace, "tb_next");
     }
 }
