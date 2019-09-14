@@ -30,7 +30,7 @@
 #include "process.h"
 #include "script.h"
 #include "utils.h"
-#include "daemon.c"
+#include "daemon.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -82,7 +82,10 @@ main(int argc, char *argv[])
     proc_init();
 
     // Daemon start
-    skeleton_daemon();
+    if (config_daemon == 1) {
+        skeleton_daemon();
+    }
+
 
     // Enter main loop
     loop_exec();

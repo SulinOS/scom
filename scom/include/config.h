@@ -76,6 +76,7 @@ extern int config_debug;
 extern int config_print;
 extern int config_runlevel;
 extern int config_ignore_missing;
+extern int config_daemon;
 
 extern char *config_dir_models;
 extern char *config_dir_modules;

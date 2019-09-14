@@ -86,6 +86,9 @@ int config_print = 0;
 //! Runlevel (1 after logging enabled)
 int config_runlevel = 0;
 
+//! Daemon mode (1 after daemon mode enabled)
+int config_daemon = 0;
+
 //! Ignore missing functions
 int config_ignore_missing = 0;
 
@@ -97,6 +100,7 @@ static struct option longopts[] = {
     { "ignore-missing", 0, NULL, 'i' },
     { "logdir", required_argument, NULL, 'l' },
     { "print", 0, NULL, 'p' },
+    { "daemon", 0, NULL, 'q' },
     { "socket", required_argument, NULL, 's' },
     { "timeout", required_argument, NULL, 't' },
     { "help", 0, NULL, 'h' },
