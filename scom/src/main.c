@@ -30,6 +30,7 @@
 #include "process.h"
 #include "script.h"
 #include "utils.h"
+#include "daemon.c"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -79,6 +80,9 @@ main(int argc, char *argv[])
 
     // Initialize parent process
     proc_init();
+
+    // Daemon start
+    skeleton_daemon();
 
     // Enter main loop
     loop_exec();
